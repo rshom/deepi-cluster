@@ -47,7 +47,20 @@ network in the lab with no outside connecitons -->
 commands should be run through the RPi4 --> <!-- TODO: just set it up
 in /etc/hostnames-->
 
+Each of the four DEEPi is connected as a seperate interface on a
+seperate subnet where the only members of each subnet are the
+observatory server and a single DEEPi. The interfaces are named
+`ethpiX`. The observatory takes the address `10.0.1X.1` and the DEEPi
+takes the address `10.0.1X.2` where `X` is the DEEPi number. The DEEPi
+number is associated with that DEEPi and not the plug choice. 
 
+Only the observatory computer has network access to the DEEPi
+computers.  For most applications, this is good enough since general
+commands can be sent to the observatory which can in turn send
+necessary commands to each DEEPi. Additionaly, a user can SSH into the
+observatory and then SSH into individual DEEPi from there. <!-- could
+also put in an tunnel or bridge the network, but that seems
+unnecessary for our application. -->
 
 ## DEEPi Software ##
 ### DEEPi Operating System ##
@@ -82,6 +95,8 @@ many options that control the camera. <!-- TODO: link -->
 The python DEEPi module uses the picamera python library to create
 some additional functionality.
 
+### Observatory Control Software ###
+<!-- TODO: build software to control the connected DEEPi -->
 ## Setup ##
 
 Create four DEEPi with unique networking on the same subnet. **This 
@@ -116,6 +131,11 @@ static ip_address=10.0.1X.2
 ```
 
 **Reboot** to enact changes.
+
+<!-- TODO: install software -->
+
+<!-- TODO: pull necessary libraries -->
+<!-- Put a repo on the RPi4 and have each RPiZ pull from the repo -->
 
 ### RPi4 Setup ###
 
