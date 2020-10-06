@@ -1,5 +1,8 @@
 # DEEPi Observatory #
-> Camera system designed to function with a long term, low cost deep-sea observatory. The cameras will be used to capture timelapse photography and to allow for live-streaming when a network connection is made.
+> Camera system designed to function with a long term, low cost
+> deep-sea observatory. The cameras will be used to capture timelapse
+> photography and to allow for live-streaming when a network
+> connection is made.
 
 ## TODO ##
 <!-- the bootloader used by DEEPi OS contains a base system, but that
@@ -157,6 +160,34 @@ SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:04", NAME="ethpi4"
 ```
 
 **Match network interfaces with static IP**
+
+Edit the ‘/etc/dhcpcd.conf’ and add the follow settings to the bottom
+of the file.
+
+
+``` bash
+interface ethpi1
+static ip_address=10.0.11.1/24
+ 
+interface ethpi2
+static ip_address=10.0.12.1/24
+ 
+interface ethpi3
+static ip_address=10.0.13.1/24
+ 
+interface ethpi4
+static ip_address=10.0.14.1/24
+```
+
+**Set up FTP server**
+
+``` bash
+sudo apt-get install proftpd-dev
+```
+
+**Set up OpenCV**
+
+https://pimylifeup.com/raspberry-pi-opencv/
 
 ## Timelapse photography ##
 
