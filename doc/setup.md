@@ -31,24 +31,24 @@ connection or through a monitor.
    Create a file `/etc/udev/rules.d/90-deepi.rules` and add the
    following.
 
-	``` bash
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:01", NAME="ethpi1"
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:02", NAME="ethpi2"
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:03", NAME="ethpi3"
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:04", NAME="ethpi4"
-   ```
+	```
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:01", NAME="ethpi1"
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:02", NAME="ethpi2"
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:03", NAME="ethpi3"
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:04", NAME="ethpi4"
+	```
 
-   4. Match network interfaces with static IP. Edit the
-   `/etc/dhcpcd.conf` and add the follow settings to the bottom of the
-   file. The RPiZ's represent different network interfaces. Therefore,
-   they must be on different subnets. Otherwise, traffic will attempt
-   to go down the wrong path based on the first subnet it finds. The
-   RPi4 must set its own static IP to `10.0.1x.1` where `x` represents
-   the subnet. Below, the RPiZ's will take the static IPs of
-   `10.0.1x.2` whre `x` represents the matching subnets.
+	4. Match network interfaces with static IP. Edit the
+	`/etc/dhcpcd.conf` and add the follow settings to the bottom of the
+	file. The RPiZ's represent different network interfaces. Therefore,
+	they must be on different subnets. Otherwise, traffic will attempt
+	to go down the wrong path based on the first subnet it finds. The
+	RPi4 must set its own static IP to `10.0.1x.1` where `x` represents
+	the subnet. Below, the RPiZ's will take the static IPs of
+	`10.0.1x.2` whre `x` represents the matching subnets.
+   
 
-
-	``` bash
+	```
 	interface ethpi1
 	static ip_address=10.0.11.1/24
 
