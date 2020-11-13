@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Reset the DEEPi which is necessary if there is a problem.
+
+# TODO: optional reset for only a single pi
+
+# Check if it currently down or up
+
+# If up, restart via ssh
+
+# If down or if that fails, cycle power
+
+# Following program allows you to control power to USB hubs
+# https://github.com/codazoda/hub-ctrl.c 
+
+# TODO: fix this so that it can find out which pi is down and reset that one
+
+# Reset each port which does not correspond to the numbers on the
+# DEEPi or to the IP addresses.
+sudo sh -c "echo 0 > /sys/bus/usb/devices/1-1\:1.0/1-1-port1/device/authorized"
+sudo sh -c "echo 1 > /sys/bus/usb/devices/1-1\:1.0/1-1-port1/device/authorized"
+
+sudo sh -c "echo 0 > /sys/bus/usb/devices/1-1\:1.0/1-1-port2/device/authorized"
+sudo sh -c "echo 1 > /sys/bus/usb/devices/1-1\:1.0/1-1-port2/device/authorized"
+
+sudo sh -c "echo 0 > /sys/bus/usb/devices/1-1\:1.0/1-1-port3/device/authorized"
+sudo sh -c "echo 1 > /sys/bus/usb/devices/1-1\:1.0/1-1-port3/device/authorized"
+
+sudo sh -c "echo 0 > /sys/bus/usb/devices/1-1\:1.0/1-1-port4/device/authorized"
+sudo sh -c "echo 1 > /sys/bus/usb/devices/1-1\:1.0/1-1-port4/device/authorized"
