@@ -52,6 +52,13 @@ modules. Therefore good quality cables are needed.
 
 <!-- TODO: link to cables we are using -->
 
+Modify the cables by first taking off the shrink wrap. The rest is
+easy after that. The wires may need to be played with to get the right
+arrangement. If the data wires are switched, `dmesg` will show an
+error, but still try to connect.
+
+<!-- TODO: fully wire all the DEEPi modules. -->
+
 ### Power Control ###
 
 Power supply is automatic and is not limited in any way. <!-- ???: is there a better way -->
@@ -60,6 +67,11 @@ Since, everything must be done remotely, the RPi4 must be able to power up and d
 if there is an issue.
 
 <!-- TODO: figure out USB reset -->
+
+The following commands seem to work for the USB reset. More tests need to be done.
+
+`./bin/uhubctl/uhubctl -l 1-1 -a 0` to power all off
+`./bin/uhubctl/uhubctl -l 1-1 -a 1` to power all on
 
 ## Network ##
 
