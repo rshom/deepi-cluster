@@ -7,7 +7,6 @@
 <!-- TODO: Update to reflect multiple uses of this system  -->
 
 ## TODO ##
-
 <!-- the bootloader used by DEEPi OS contains a base system, but that
 system is not designed to do anything. For this specific purpose, I
 will make edits after the install since I am only making
@@ -145,42 +144,7 @@ static ip_address=10.0.1X.2
 
 ### RPi4 Setup ###
 
-**Change Hostname**
 
-Change the host name to `deepiobs01` in both `/etc/hosts` and
-`/etc/hostname`.
-
-
-**UDEV Rules to change network interface names**
-
-Create a file `/etc/udev/rules.d/90-deepi.rules` and add the following.
-
-``` bash
-SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:01", NAME="ethpi1"
-SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:02", NAME="ethpi2"
-SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:03", NAME="ethpi3"
-SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:04", NAME="ethpi4"
-```
-
-**Match network interfaces with static IP**
-
-Edit the ‘/etc/dhcpcd.conf’ and add the follow settings to the bottom
-of the file.
-
-
-``` bash
-interface ethpi1
-static ip_address=10.0.11.1/24
- 
-interface ethpi2
-static ip_address=10.0.12.1/24
- 
-interface ethpi3
-static ip_address=10.0.13.1/24
- 
-interface ethpi4
-static ip_address=10.0.14.1/24
-```
 
 **Set up FTP server**
 
