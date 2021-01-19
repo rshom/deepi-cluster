@@ -64,6 +64,7 @@ static ip_address=10.0.14.1/24
 
 5. Install `uhubctl`. <!-- TODO: fill in details here -->
 
+6. Install `usbreset` <!-- TODO: fill in details here -->
 
 ### RPiZ Networking Set Up ###
 
@@ -135,9 +136,32 @@ login to each RPiZ to test control. The password (unless changed manually) is
 
 <!-- TODO: include some troubleshooting here. -->
 
-Set up passwordless SSH via by generating a public key. <!-- TODO:
-instructions -->
+Set up passwordless SSH via by generating a public key.
 
+Run the following on the RPi4. When prompted, a password is
+unnecessary for most applications.
+
+```
+ssh-keygen -t rsa
+```
+
+Copy the newly made key to the RPiZs. Follow the prompts as necessary.
+
+```
+ssh-copy-id pi@10.0.11.2
+ssh-copy-id pi@10.0.12.2
+ssh-copy-id pi@10.0.13.2
+ssh-copy-id pi@10.0.14.2
+```
+
+Test the connections. No password prompt should be necessary.
+
+```
+ssh pi@10.0.11.2
+ssh pi@10.0.12.2
+ssh pi@10.0.13.2
+ssh pi@10.0.14.2
+```
 
 ## Additional Software ##
 

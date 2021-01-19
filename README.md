@@ -1,8 +1,5 @@
 # DEEPi Cluster #
-> Camera system designed to function with a long term, low cost
-> deep-sea observatory. The cameras will be used to capture timelapse
-> photography and to allow for live-streaming when a network
-> connection is made.
+> Combine DEEPi modules to operate as a single unit.
 
 <!-- TODO: Update to reflect multiple uses of this system  -->
 
@@ -10,11 +7,11 @@
 
 <!-- TODO: include link to DEEPi project -->
 <!-- TODO: link to the observatory project -->
+<!-- TODO: link to the rad sampler project -->
 
-This runs off the DEEPi OS project. The observatory follows a specific
-functionality though. The DEEPi cameras should take time lapse
-photography. It will take these photos for a year, so the programming
-must be robust.
+This runs off the DEEPi OS project. 
+
+<!-- TODO: fill in README -->
 
 ## Hardware ##
 
