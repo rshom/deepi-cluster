@@ -4,9 +4,6 @@
 > photography and to allow for live-streaming when a network
 > connection is made.
 
-<!-- TODO: Update to reflect multiple uses of this system  -->
-
-<<<<<<< HEAD
 ## TODO ##
 
 <!-- the bootloader used by DEEPi OS contains a base system, but that
@@ -21,8 +18,6 @@ four. However, I do need a specific list of what is done. -->
   * [ ] live stream 
   * [ ] client code
 
-=======
->>>>>>> e2b8c6476c9e23541c72aeb43ab896eb94b9f266
 ## Overview ##
 
 <!-- TODO: include link to DEEPi project -->
@@ -116,7 +111,8 @@ over USB provides the connection for these interfaces.
 #### SSH ####
 
   * [ ] enable SSH on initial set up for the DEEPi
-
+  * [ ] Use PSK to allow passwordless SSH
+  
 #### NTP ####
 
   * [ ] install an NTP server on the cluster
