@@ -61,17 +61,24 @@ error, but still try to connect.
 
 ### Power Control ###
 
-Power supply is automatic and is not limited in any way. <!-- ???: is there a better way -->
+Power supply is automatic and is not limited in any way. <!-- ???: is
+there a better way -->
 
-Since, everything must be done remotely, the RPi4 must be able to power up and down USB ports
-if there is an issue.
+Since, everything must be done remotely, the RPi4 must be able to
+power up and down USB ports if there is an issue.
 
 <!-- TODO: figure out USB reset -->
 
-The following commands seem to work for the USB reset. More tests need to be done.
+The following commands seem to work for the USB power on and off.
 
-`./bin/uhubctl/uhubctl -l 1-1 -a 0` to power all off
-`./bin/uhubctl/uhubctl -l 1-1 -a 1` to power all on
+`sudo uhubctl -l 1-1 -a 0` to power all off
+`sudo uhubctl -l 1-1 -a 1` to power all on
+
+After the power has been reset, the following command will reset the
+network. Without this command, nothing will reconnect.
+
+`sudo usbreset /dev/bus/usb/001/002`
+
 
 ## Network ##
 
