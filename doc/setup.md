@@ -123,7 +123,7 @@ gateway 10.0.1x.1
    ruin the process. The RPiZ should reboot three times before
    complete.
 	  
-### Final Network Setup ###
+### Test Network Setup ###
 
 At this point, the cluster is bassically set up and may be plugged in
 and tested. Once everything is plugged, power it on and give a little
@@ -135,6 +135,8 @@ login to each RPiZ to test control. The password (unless changed manually) is
 `raspberry`. 
 
 <!-- TODO: include some troubleshooting here. -->
+
+### Enable Passwordless SSH ###
 
 Set up passwordless SSH via by generating a public key.
 
@@ -162,6 +164,17 @@ ssh pi@10.0.12.2
 ssh pi@10.0.13.2
 ssh pi@10.0.14.2
 ```
+
+### Enable IP Forwarding ###
+
+Enable IP forwarding so that the RPiZs can be accessed from the network.
+
+1. SSH into the RPi4 and run `sudo sysctl net.ipv4.ip_forward=1`.
+2. Edit the routing table of the computer attempting to reach the RPiZ
+   to route traffic for the subnet through the RPi4.
+   
+   If the computer is a mac and the RPi4 IP address is 192.168.0.2,
+   the command looks like `sudo route add 10.0.0/24.0/24 192.168.0.2`.
 
 ## Additional Software ##
 
