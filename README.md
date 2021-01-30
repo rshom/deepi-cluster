@@ -1,4 +1,5 @@
 # DEEPi Cluster #
+<<<<<<< HEAD
 > Camera system designed to function with a long term, low cost
 > deep-sea observatory. The cameras will be used to capture timelapse
 > photography and to allow for live-streaming when a network
@@ -17,149 +18,131 @@ four. However, I do need a specific list of what is done. -->
   * [ ] timelapse
   * [ ] live stream 
   * [ ] client code
+=======
+> Combine DEEPi modules to operate as a single unit.
+>>>>>>> 9a4c9ca9d2803e7ad524e8a077ba19f416bbac93
 
 ## Overview ##
 
-<!-- TODO: include link to DEEPi project -->
-<!-- TODO: link to the observatory project -->
+This runs off the DEEPi OS project. 
 
-This runs off the DEEPi OS project. The observatory follows a specific
-functionality though. The DEEPi cameras should take time lapse
-photography. It will take these photos for a year, so the programming
-must be robust.
+## Power Control ##
 
-## Hardware ##
+The RPi4 recieves 5VD power either from GPIO pins or a USB-C cable. Currently,
+only the USB-C cable has been tested. Power is distributed to the RPiZs through micro-USB cables, which supply power and data. 
 
-The DEEPi-Cluster is a single RPi4 which can power and control 4x
-DEEPi modules. The DEEPi modules plug into the USB ports on the RPi4
-which allows for both power and control.
+## Commands ##
 
-<!-- TODO: expand to control multiple Clusters and stereo pi -->
+  * `rebootcluster` resets all the RPiZs.
+  
+Commands are simple to impliment. They are stored as executables in
+`/usr/local/bin`. Commands can be scheduled using `crontab`. More
+information under `man crontab`.
 
-### Power ###
-
-The DEEPi modules are powered by the RPi4 USB hub. 
-
-> Pis are fussy concerning power supply. 
-
-According to official documentation on [power
-supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/),
-every RPi including the RPiZ requires a 5.1V power supply. A 3.0A
-power supply is recommended for the RPi4, and a 1.2A power supply is
-recomended for the RPiZ.
-
-According to this documentation, the RPi4 is only capable of supplying
-1.2A to USB devices. This means each RPiZ recieves 300mA on average. A
-RPiZ uses 100mA typically, but we expect to run these hard, so this
-limit is a problem. While shooting video, the zero could be using
-230mA.
-
-<!-- TODO: look at using an externally powered USB hub -->
-
-<!-- TODO: power over ethernet may be a good option as well for the
-RPi4 -->
-
-The RPi4 should be able to just barely power 4x DEEPi
-modules. Therefore good quality cables are needed.
-
-<!-- TODO: link to cables we are using -->
-
-Modify the cables by first taking off the shrink wrap. The rest is
-easy after that. The wires may need to be played with to get the right
-arrangement. If the data wires are switched, `dmesg` will show an
-error, but still try to connect.
-
-<!-- TODO: fully wire all the DEEPi modules. -->
-
-### Power Control ###
-
-Power supply is automatic and is not limited in any way. <!-- ???: is there a better way -->
-
-Since, everything must be done remotely, the RPi4 must be able to power up and down USB ports
-if there is an issue.
-
-<!-- TODO: figure out USB reset -->
-
-The following commands seem to work for the USB reset. More tests need to be done.
-
-`./bin/uhubctl/uhubctl -l 1-1 -a 0` to power all off
-`./bin/uhubctl/uhubctl -l 1-1 -a 1` to power all on
+> TODO: Impliment more commands. I have not implimented many, but that
+> that part is much easier compared to the networking part. Most of
+> them are only one line.
 
 ## Network ##
 
-The same USB cables that power the DEEPi modules can be used to create
-an ethernet over USB connections. 
+The system has a complex networking solution including multiple
+networks.  On Avahi or Bonjour enabled networks, the RPi's can be
+accessed through the hostnames `deepi-cluster`, `deepi1`, `deepi2`,
+`deepi3`, and `deepi4` if the IP addresses are not known.
 
-The RPi4 operates either as a standalone computer which can be
-attached to a monitor has connectivity through it's ethernet port.
+### USB-LAN ###
 
-The networks created by the ethernet over USB connections are two node
-networks between each DEEPi and the RPi4. They live on different
-subnets, so an outside host cannot not dirrectly directly access a
-DEEPi without first getting an SSH terminal inside the RPi4.
+The RPi4 and RPiZ communicate using Ethernet-over-USB via the same
+cables supplying power. The connections appear on four seperate
+network interfaces using four seperate subnets.
 
-## Interfaces ##
+| RPiZ Hostname | Interface | RPiZ IP   | RPi4 IP   |
+|---------------|-----------|-----------|-----------|
+| deepi1        | ethpi1    | 10.0.11.2 | 10.0.11.1 |
+| deepi2        | ethpi2    | 10.0.12.2 | 10.0.12.1 |
+| deepi3        | ethpi3    | 10.0.13.2 | 10.0.13.1 |
+| deepi4        | ethpi4    | 10.0.14.2 | 10.0.14.1 |
 
-The DEEPi Cluster acts as both a sever to the user computer and a
-client to the DEEPi modules. 
+The USB-LAN allows communication between the RPi.
 
-### Cluster to DEEPi ###
+### LAN ###
 
-The DEEPi must be accessed through commandline interfaces. Ethernet
-over USB provides the connection for these interfaces.
-
-#### SSH ####
-
+<<<<<<< HEAD
   * [ ] enable SSH on initial set up for the DEEPi
   * [ ] Use PSK to allow passwordless SSH
   
 #### NTP ####
+=======
+The RPi4 has an ethernet cable allowing for hotplugging into LAN
+networks. The RPi4 any network assigned IP address.
 
-  * [ ] install an NTP server on the cluster
-  * [ ] connect each DEEPi to the NtP server
+The LAN connection on the RPi4 does not extend to the
+USB-LAN. However, IP forwarding is turned on on the RPi4. Users can
+edit the IP Routing Table on their computer to communicate with the
+RPiZ when on the same LAN. On OSX the command is `sudo route add 10/24
+IP.OF.THE.RPI4`.
+>>>>>>> 9a4c9ca9d2803e7ad524e8a077ba19f416bbac93
 
-#### FTP ####
+### WLAN ###
 
-  * [ ] install proftp on each DEEPi
-  * [ ] install proftp on the cluster
-  * [ ] ???
-  
-#### HTTP ####
+For debugging and updating, the entire system connects to WiFi
+networks named "DEEPiNet" with password "deepinet". It is capable of
+being connected to additional networks. This default is a backup which
+can always be created using a hotspot.
 
-  * [ ] install lighttpd on each DEEPi
+## Time Sync ##
 
-### Client to Cluster ###
+None of the RPi have a real time clock (RTC) on board. This means the
+clocks slowly drift in the absense of an internet source. This is
+problem for some applications.
 
-During set up, the DEEPi is plugged into a monitor and keyboard. It
-acts as a standalone desktop computer.
+The RPi4 is set to broadcast an NTP server to the RPiZ.
 
-<!-- TODO: ensure all these interfaces are set up -->
+> TODO: I have not really been able to test this because I think the
+> University may be blocking access to NTP (port 123) for security
+> reasons. It is pretty important for some applications. If the RPiZ
+> are left to their own timing, the clocks will slowly drift
+> apart. Videos and timelapse photos would not sync up in this
+> case. There are some ways to patch this, but by the best way is a
+> reliable network clock source provided by the RPi4 but originating
+> from some better source.
 
-#### VNC ####
 
-#### SSH ####
+## Web Server ##
 
-#### NTP ####
+The RPi4 runs a lighttpd web server which combines data from the
+webservers on the RPiZ. The webserver also allows for runing CGI-BIN
+scripts to issue commands. Web server files are located in
+`/var/www/html/` and CGI-BIN scripts are located in
+`/usr/lib/cgi-bin`.
 
-#### FTP ####
+> TODO: write CGI-BIN scripts.
 
-#### HTTP ####
+> TODO: Set up the backend proxy so IP forwarding is not
+> needed. Currently, the RPi4 server redirects or pulls resources from
+> the RPiZ webservers. This requires IP forwarding to work. A better
+> solution setting up a backend proxy to pipe the data. I ran into
+> some issues getting mjpeg streaming to work using this method.
 
-### Client to DEEPi ###
+## Interfaces ##
 
-  * [ ] set up ways to transfer data on and off the DEEPi modules
+For all interfaces requiring authentication the username and password
+are left as the default for RPi OS, `pi` and `raspberry`
+respectively. The interfaces enabled in the cluster are the same as
+those in the DEEPi OS with the addition of the VNC being enabled for
+the RPi4. IP forwarding must be used to access the RPiZ when not
+connected via WLAN. SSH can be chained by accessing the RPi4 first.
+
+> TODO: Investigate tunneling as an alternative access to the RPiZ
+> when WLAN and IP forwarding are not available.
 
 ## Contributors ##
 
 * [Russell Shomberg](https://rshom.github.io)
 * [Brennan Phillips](https://web.uri.edu/uril/)
-<!-- TODO: add contributors-->
 
 ## License ##
-<!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
 This project uses the following license: MIT.
 
-
-	
-
+> TODO: what license do we want???
