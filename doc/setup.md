@@ -115,8 +115,6 @@ computer, and make the following edits.
 	  broadcast 10.0.12.255
 	  gateway 10.0.1x.1
 	  ```
-	  
-
 
    3. Plug SD into RPiZ and allow to run. RPiZ will reboot a few times
 	  before finishing. (for this to work an internet connection must
@@ -140,6 +138,7 @@ login to each RPiZ to test control. The password (unless changed manually) is
 
 Set up passwordless SSH via by generating a public key. <!-- TODO:
 instructions -->
+
 
 
 ## Additional Software ##
