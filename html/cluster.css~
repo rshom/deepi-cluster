@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.header {
+    text-align: center;
+    padding: 32 px;
+}
+
+.row {
+    /* justify-content: center; */
+}
+
+.column {
+    /* flex: 50%; */
+    max-width: 50%;
+    padding: 0 4px;
+    float:left;
+}
+
+.control {
+    /* justify-content: flex-start; */
+}
+
+.feed {
+    /* justify-content: flex-start; */
+}
+

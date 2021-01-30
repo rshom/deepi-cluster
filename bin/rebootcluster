@@ -12,6 +12,3 @@ sudo uhubctl -l 1-1 -a 1	# power all on
 sleep 30			# allow DEEPi to power on
 sudo usbreset /dev/bus/usb/001/002 # reset hub
 
-
-
-

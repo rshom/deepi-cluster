@@ -7,12 +7,15 @@ This runs off the DEEPi OS project.
 
 ## Power Control ##
 
-The RPi4 recieves 5VD power either from GPIO pins or a USB-C cable. Currently,
-only the USB-C cable has been tested. Power is distributed to the RPiZs through micro-USB cables, which supply power and data. 
+The RPi4 recieves 5VD power either from GPIO pins or a USB-C
+cable. Currently, only the USB-C cable has been tested. Power is
+distributed to the RPiZs through micro-USB cables, which supply power
+and data.
 
 ## Commands ##
 
   * `rebootcluster` resets all the RPiZs.
+  * `checkstatus` pings all the RPiZs and prints the connected ones
   
 Commands are simple to impliment. They are stored as executables in
 `/usr/local/bin`. Commands can be scheduled using `crontab`. More
@@ -117,4 +120,4 @@ connected via WLAN. SSH can be chained by accessing the RPi4 first.
 
 This project uses the following license: MIT.
 
-> TODO: what license do we want???
+<!-- ???: is this what we want -->

@@ -1,0 +1,90 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DEEPi Cluster</title>
+
+    <!-- Scripts -->
+    <script src="cluster.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="cluster.css">
+
+  </head>
+
+<body>
+
+<div class="header">
+  <h1>DEEPi Cluster</h1>
+  <p>Underwater Robotics and Imaging Laboratory</p>
+  <p>University of Rhode Island</p>
+</div>
+
+<div class="topnav">
+      <a href="#">Home</a>
+      <a href="#">Manual</a>
+      <a href="#">About</a>
+      <!-- <a href="#" style="float:right">Link</a> -->
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <p>Status: Ready</p>
+      <p>Date: 2021-01-30</p>
+      <p>Time: 17:31.01</p>
+    </div>
+    <div class="card" id="control">
+      <p>
+	<button>Capture Still</button>
+      </p>
+      <p>
+	<button>Start Timelapse</button>
+	<button>Stop Timelapse</button>
+      </p>
+      <p>
+	<button>Start Recording</button>
+	<button>Stop Recording</button>
+      </p>
+      <p>
+	<button>Reboot</button>
+	<button>Reboot Modules</button>
+	<button>Reboot Cluster</button>
+      </p>
+    </div>
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <div class="topnav">
+	<!-- TODO: highlight current selection -->
+	<a onClick = "changefeed(0)" href="#">DEEPi #0</a>
+	<a onClick = "changefeed(1)" href="#">DEEPi #1</a>
+	<a onClick = "changefeed(2)" href="#">DEEPi #2</a>
+	<a onClick = "changefeed(3)" href="#">DEEPi #3</a>
+	<a onClick = "changefeed(4)" href="#">DEEPi #4</a>
+      </div>
+      <img id="live-feed"
+	   src="http://10.0.11.1:8080/stream/video.mjpeg"
+	   alt="Live feed not available."
+	   style="width:100%;"
+	   />
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h5>Underwater Robotics and Imaging Laboratory</h5>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+    
+
+
