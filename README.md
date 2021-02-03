@@ -1,26 +1,5 @@
 # DEEPi Cluster #
-<<<<<<< HEAD
-> Camera system designed to function with a long term, low cost
-> deep-sea observatory. The cameras will be used to capture timelapse
-> photography and to allow for live-streaming when a network
-> connection is made.
-
-## TODO ##
-
-<!-- the bootloader used by DEEPi OS contains a base system, but that
-system is not designed to do anything. For this specific purpose, I
-will make edits after the install since I am only making
-four. However, I do need a specific list of what is done. -->
-
-  * [ ] set up boot script
-	* [ ] packages installed
-	* [ ] auto scripts set up
-  * [ ] timelapse
-  * [ ] live stream 
-  * [ ] client code
-=======
 > Combine DEEPi modules to operate as a single unit.
->>>>>>> 9a4c9ca9d2803e7ad524e8a077ba19f416bbac93
 
 ## Overview ##
 
@@ -28,8 +7,9 @@ This runs off the DEEPi OS project.
 
 ## Power Control ##
 
-The RPi4 recieves 5VD power either from GPIO pins or a USB-C cable. Currently,
-only the USB-C cable has been tested. Power is distributed to the RPiZs through micro-USB cables, which supply power and data. 
+The RPi4 recieves 5VD power either from GPIO pins or a USB-C
+cable. Power is distributed to the RPiZs through micro-USB cables,
+which supply power and data.
 
 ## Commands ##
 
@@ -67,12 +47,6 @@ The USB-LAN allows communication between the RPi.
 
 ### LAN ###
 
-<<<<<<< HEAD
-  * [ ] enable SSH on initial set up for the DEEPi
-  * [ ] Use PSK to allow passwordless SSH
-  
-#### NTP ####
-=======
 The RPi4 has an ethernet cable allowing for hotplugging into LAN
 networks. The RPi4 any network assigned IP address.
 
@@ -81,7 +55,6 @@ USB-LAN. However, IP forwarding is turned on on the RPi4. Users can
 edit the IP Routing Table on their computer to communicate with the
 RPiZ when on the same LAN. On OSX the command is `sudo route add 10/24
 IP.OF.THE.RPI4`.
->>>>>>> 9a4c9ca9d2803e7ad524e8a077ba19f416bbac93
 
 ### WLAN ###
 
