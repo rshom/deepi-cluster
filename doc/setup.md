@@ -45,8 +45,7 @@ connection or through a monitor.
    to go down the wrong path based on the first subnet it finds. The
    RPi4 must set its own static IP to `10.0.1x.1` where `x` represents
    the subnet. Below, the RPiZ's will take the static IPs of
-   `10.0.1x.2` whre `x` represents the matching subnets.
-   
+   `10.0.1x.2` whre `x` represents the matching subnets.   
 
 	```
 	interface ethpi1
@@ -61,12 +60,64 @@ connection or through a monitor.
 	interface ethpi4
 	static ip_address=10.0.14.1/24
 	```
+### RPiZ Networking Set Up ###
 
-5. Install `uhubctl`. <!-- TODO: fill in details here -->
+Follow the following steps for each of the RPiZ used in
+project. Throughout these steps an `x` will be used to represent each
+unique RPiZ. These values need to match networking values used above
+which were `1` through `4`.
 
-6. Install `usbreset` <!-- TODO: fill in details here -->
+Refer to the deepi-os project <!-- TODO: link --> and follow all
+instructions up to the initial boot. Keep the microSD mounted on a
+computer, and make the following edits.
 
-### Test Network Setup ###
+   1. In `boot/one-time-script.conf`, change the following lines
+      throughout the file. Be sure the `x` in the hostname matches.
+   
+      ```
+	  new_hostname = deepi0x
+	  packages_to_install = python3 python3-pip proftpd screen lighttpd ntp vlc
+  
+	  # wifi settings
+	  # country code from /usr/share/zoneinfo/iso3166.tab
+	  # NOTE: this should match the internet available
+	  new_wifi_country = US
+	  new_wifi_ssid = "MY_WIFI_NETWORK"
+	  new_wifi_password = "MY_WIFI_PASSWORD"
+	  ```
+   
+      The wifi will only work with a 2.4GHz network. If the network
+	  blocks internet forwarding, the wifi is necessary to install
+	  software. <!-- TODO: confirm this. URI secure and URI open (I
+	  think) block -->
+   
+	  It is useful to assign the wifi to a smart phone hotspot as a
+	  back up for future debugging.
+   
+   3. Go into the `boot/payload/` directory to edit files that will go
+	  directly into the RPiZ filesystem after set up.
+   
+   2. Create a file `etc/network/interfaces.d/usb0` and with the
+      following content with each `x` replaced..
+	  
+	  ```
+	  allow-hotplug usb0
+	  iface usb0 inet static
+	  address 10.0.1x.2
+	  netmask 255.255.255.0
+	  network 10.0.1x.01
+	  broadcast 10.0.12.255
+	  gateway 10.0.1x.1
+	  ```
+
+   3. Plug SD into RPiZ and allow to run. RPiZ will reboot a few times
+	  before finishing. (for this to work an internet connection must
+	  open either through wifi or through usb over ethernet.) **This
+	  process will take a very long time** and interrupting it may be
+	  ruin the process. The RPiZ should reboot three times before
+	  complete.
+	  
+### Final Network Setup ###
 
 At this point, the cluster is bassically set up and may be plugged in
 and tested. Once everything is plugged, power it on and give a little
@@ -79,45 +130,9 @@ login to each RPiZ to test control. The password (unless changed manually) is
 
 <!-- TODO: include some troubleshooting here. -->
 
-### Enable Passwordless SSH ###
+Set up passwordless SSH via by generating a public key. <!-- TODO:
+instructions -->
 
-Set up passwordless SSH via by generating a public key.
-
-Run the following on the RPi4. When prompted, a password is
-unnecessary for most applications.
-
-```
-ssh-keygen -t rsa
-```
-
-Copy the newly made key to the RPiZs. Follow the prompts as necessary.
-
-```
-ssh-copy-id pi@10.0.11.2
-ssh-copy-id pi@10.0.12.2
-ssh-copy-id pi@10.0.13.2
-ssh-copy-id pi@10.0.14.2
-```
-
-Test the connections. No password prompt should be necessary.
-
-```
-ssh pi@10.0.11.2
-ssh pi@10.0.12.2
-ssh pi@10.0.13.2
-ssh pi@10.0.14.2
-```
-
-### Enable IP Forwarding ###
-
-Enable IP forwarding so that the RPiZs can be accessed from the network.
-
-1. SSH into the RPi4 and run `sudo sysctl net.ipv4.ip_forward=1`.
-2. Edit the routing table of the computer attempting to reach the RPiZ
-   to route traffic for the subnet through the RPi4.
-   
-   If the computer is a mac and the RPi4 IP address is 192.168.0.2,
-   the command looks like `sudo route add 10.0.0/24.0/24 192.168.0.2`.
 
 
 ## Additional Software ##

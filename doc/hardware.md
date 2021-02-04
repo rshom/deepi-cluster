@@ -23,39 +23,3 @@ they will not recognize the connection.
 
 <!-- NOTE: In the alternative case of air operations, the connections can be
 run over wifi and the issue could be ignored. -->
-
-### Power ###
-
-The DEEPi modules are powered by the RPi4 USB hub. 
-
-> Pis are fussy concerning power supply. 
-
-According to official documentation on [power
-supply](https://www.raspberrypi.org/documentation/hardware/raspberrypi/power/),
-every RPi including the RPiZ requires a 5.1V power supply. A 3.0A
-power supply is recommended for the RPi4, and a 1.2A power supply is
-recomended for the RPiZ.
-
-According to this documentation, the RPi4 is only capable of supplying
-1.2A to USB devices. This means each RPiZ recieves 300mA on average. A
-RPiZ uses 100mA typically, but we expect to run these hard, so this
-limit is a problem. While shooting video, the zero could be using
-230mA.
-
-<!-- TODO: look at using an externally powered USB hub -->
-
-<!-- TODO: power over ethernet may be a good option as well for the
-RPi4 -->
-
-The RPi4 should be able to just barely power 4x DEEPi
-modules. Therefore good quality cables are needed.
-
-<!-- TODO: link to cables we are using -->
-
-Modify the cables by first taking off the shrink wrap. The rest is
-easy after that. The wires may need to be played with to get the right
-arrangement. If the data wires are switched, `dmesg` will show an
-error, but still try to connect.
-
-<!-- TODO: fully wire all the DEEPi modules. -->
-
