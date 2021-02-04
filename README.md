@@ -1,22 +1,10 @@
 # DEEPi Cluster #
+
 > Camera system designed to function with a long term, low cost
 > deep-sea observatory. The cameras will be used to capture timelapse
 > photography and to allow for live-streaming when a network
 > connection is made.
 
-## TODO ##
-
-<!-- the bootloader used by DEEPi OS contains a base system, but that
-system is not designed to do anything. For this specific purpose, I
-will make edits after the install since I am only making
-four. However, I do need a specific list of what is done. -->
-
-  * [ ] set up boot script
-	* [ ] packages installed
-	* [ ] auto scripts set up
-  * [ ] timelapse
-  * [ ] live stream 
-  * [ ] client code
 
 ## Overview ##
 
@@ -29,6 +17,11 @@ photography. It will take these photos for a year, so the programming
 must be robust.
 
 ## Hardware ##
+
+The RPi4 recieves 5VD power either from GPIO pins or a USB-C
+cable. Power is distributed to the RPiZs through micro-USB cables,
+which supply power and data.
+
 
 The DEEPi-Cluster is a single RPi4 which can power and control 4x
 DEEPi modules. The DEEPi modules plug into the USB ports on the RPi4
@@ -98,56 +91,39 @@ networks between each DEEPi and the RPi4. They live on different
 subnets, so an outside host cannot not dirrectly directly access a
 DEEPi without first getting an SSH terminal inside the RPi4.
 
+The RPi4 has an ethernet cable allowing for hotplugging into LAN
+networks. The RPi4 any network assigned IP address.
+
+The LAN connection on the RPi4 does not extend to the
+USB-LAN. However, IP forwarding is turned on on the RPi4. Users can
+edit the IP Routing Table on their computer to communicate with the
+RPiZ when on the same LAN. On OSX the command is `sudo route add 10/24
+IP.OF.THE.RPI4`.
+
 ## Interfaces ##
 
 The DEEPi Cluster acts as both a sever to the user computer and a
 client to the DEEPi modules. 
 
-### Cluster to DEEPi ###
+### SSH ###
 
-The DEEPi must be accessed through commandline interfaces. Ethernet
-over USB provides the connection for these interfaces.
+Passwordless SSH is set up between the RPi4 and the RPiZs. 
 
-#### SSH ####
+### FTP ###
 
-  * [ ] enable SSH on initial set up for the DEEPi
-  * [ ] Use PSK to allow passwordless SSH
+ProFTP is installed and running as a service on all RPi
   
-#### NTP ####
+### HTTP ###
 
-  * [ ] install an NTP server on the cluster
-  * [ ] connect each DEEPi to the NtP server
+Lighttped is installed and running as a service on all RPi. The webserver can serve static pages,
+stream from the camera and access `/usr/lib/cgi-bin` to execute scripts.
 
-#### FTP ####
+### NTP ###
 
-  * [ ] install proftp on each DEEPi
-  * [ ] install proftp on the cluster
-  * [ ] ???
-  
-#### HTTP ####
+The RPiZ use the `timesyncd` service to look for time sync. The RPi4 has a NTP server broadcasting to the RPi4. The
+RPi4 must use `timesyncd` to sync it's time from an outside source.
 
-  * [ ] install lighttpd on each DEEPi
-
-### Client to Cluster ###
-
-During set up, the DEEPi is plugged into a monitor and keyboard. It
-acts as a standalone desktop computer.
-
-<!-- TODO: ensure all these interfaces are set up -->
-
-#### VNC ####
-
-#### SSH ####
-
-#### NTP ####
-
-#### FTP ####
-
-#### HTTP ####
-
-### Client to DEEPi ###
-
-  * [ ] set up ways to transfer data on and off the DEEPi modules
+> The time sync functionality needs more testing.
 
 ## Contributors ##
 

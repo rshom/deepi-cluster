@@ -14,58 +14,52 @@ connection or through a monitor.
 > steps available online including RPi specific instructions. I will
 > not reproduce them here.
 
-   1. Install the full [Raspberry Pi
-	  OS](https://www.raspberrypi.org/software/operating-systems/)
-	  with desktop and recommended software. Be sure to use the
-	  maximum available SD card size as this will determine the how
-	  much media storage is available to the cluster.
+1. Install the full [Raspberry Pi
+   OS](https://www.raspberrypi.org/software/operating-systems/) with
+   desktop and recommended software. Be sure to use the maximum
+   available SD card size as this will determine the how much media
+   storage is available to the cluster.
 
-   2. Change hostname to `deepi-cluster`.
+2. Change hostname to `deepi-cluster`.
 
-   3. Set UDEV rules to change the network interface names. These are
-	  specific networking rules for specific devices. We are going to
-	  give the RPiZ's specific ethernet addresses matching the ones
-	  below allowing the RPi4 to identify them as seperate devices and
-	  set seperate network interaces to deal with them.
+3. Set UDEV rules to change the network interface names. These are
+   specific networking rules for specific devices. We are going to
+   give the RPiZ's specific ethernet addresses matching the ones below
+   allowing the RPi4 to identify them as seperate devices and set
+   seperate network interaces to deal with them.
 
-	  Create a file `/etc/udev/rules.d/90-deepi.rules` and add the
-	  following.
+	Create a file `/etc/udev/rules.d/90-deepi.rules` and add the
+	following.
 
-   ```
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:01", NAME="ethpi1"
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:02", NAME="ethpi2"
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:03", NAME="ethpi3"
-   SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:04", NAME="ethpi4"
-   ```
+	```
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:01", NAME="ethpi1"
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:02", NAME="ethpi2"
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:03", NAME="ethpi3"
+	SUBSYSTEM=="net", ATTR{address}=="00:22:82:ff:ff:04", NAME="ethpi4"
+	```
 
-   4. Match network interfaces with static IP. Edit the
-	  `/etc/dhcpcd.conf` and add the follow settings to the bottom of
-	  the file. The RPiZ's represent different network
-	  interfaces. Therefore, they must be on different
-	  subnets. Otherwise, traffic will attempt to go down the wrong
-	  path based on the first subnet it finds. The RPi4 must set its
-	  own static IP to `10.0.1x.1` where `x` represents the
-	  subnet. Below, the RPiZ's will take the static IPs of
-	  `10.0.1x.2` whre `x` represents the matching subnets.
-   
+4. Match network interfaces with static IP. Edit the
+   `/etc/dhcpcd.conf` and add the follow settings to the bottom of the
+   file. The RPiZ's represent different network interfaces. Therefore,
+   they must be on different subnets. Otherwise, traffic will attempt
+   to go down the wrong path based on the first subnet it finds. The
+   RPi4 must set its own static IP to `10.0.1x.1` where `x` represents
+   the subnet. Below, the RPiZ's will take the static IPs of
+   `10.0.1x.2` whre `x` represents the matching subnets.   
 
 	```
 	interface ethpi1
 	static ip_address=10.0.11.1/24
-
+		
 	interface ethpi2
 	static ip_address=10.0.12.1/24
-
+		
 	interface ethpi3
 	static ip_address=10.0.13.1/24
-
+	
 	interface ethpi4
 	static ip_address=10.0.14.1/24
 	```
-
-   5. Install `uhubctl`. <!-- TODO: fill in details here -->
-
-
 ### RPiZ Networking Set Up ###
 
 Follow the following steps for each of the RPiZ used in
